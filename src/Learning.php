@@ -10,7 +10,7 @@ class Learning {
   }
 
   public function getCheese() {
-
+  	return $this->cheese;
   }
  
 }
