@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DorothyMolloy\\LearningProject\\": "src"
+            "DorothyMolloy\\LearningProject\\": "_src"
         }
     }
 }

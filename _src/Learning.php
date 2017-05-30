@@ -9,6 +9,7 @@ class Learning {
     return $bool;
   }
 
+
   public function getCheese() {
   	return $this->cheese;
   }
