@@ -13,7 +13,7 @@ class LearningTest extends PHPUnit_Framework_TestCase {
   public function testWhatCheese(){
   	$learning = new Learning;
   	$this->assertEquals($learning->getCheese(), "camenbert");
-  	"camenbert"
+
   }
  
 }
