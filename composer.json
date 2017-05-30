@@ -1,0 +1,21 @@
+{
+    "name": "dorothymolloy/LearningProject",
+    "description": "Nacho, nacho man. I want to be a nacho man",
+    "license": "MIT",
+    "keywords": ["learning"],
+    "authors": [
+        {
+            "name": "Dorothy Molloy",
+            "email": "dorothym@climbingturn.co.uk"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DorothyMolloy\\LearningProject\\": "src"
+        }
+    }
+}
