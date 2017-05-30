@@ -5,6 +5,7 @@ var plugins = require("gulp-load-plugins")({
     replaceString: /\bgulp[\-.]/
 });
 
+
 /* --- File paths --- */
 var basePaths = {
 	root: '_src/',
@@ -26,22 +27,30 @@ var changeEvent = function(evt) {
 };
 
 /* --- Composer --- */
-composer = require('gulp-composer');
 gulp.task('composer', function(){
-	composer('self-update');
+	plugins.composer('install');
 });
 
-/* --- Replace with something useful! --- */
-gulp.task('thing' , function(){
-	console.log("now calling thing");
+/* --- Php Unit --- */
+var exec = require('child_process').exec;
+gulp.task('phpunit', function(cb){
+	exec('./vendor/bin/phpunit', function(err, stdout, stderr){
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);		
+	});
 });
 
 
 gulp.task('watch', function(){
-	gulp.watch(['./composer.json', appFiles.php], [ 'composer', 'thing'])
+	gulp.watch(['./composer.json'], [ 'composer'])
 		.on('change', function(evt){
 			changeEvent(evt);
 		});
+	gulp.watch([appFiles.php], [ 'phpunit'])
+		.on('change', function(evt){
+			changeEvent(evt);
+		});		
 });
 
 gulp.task('default', ['composer', 'watch']);
