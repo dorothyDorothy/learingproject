@@ -9,5 +9,11 @@ class LearningTest extends PHPUnit_Framework_TestCase {
     $learning = new Learning;
     $this->assertTrue($learning->hasCheese());
   }
+
+  public function testWhatCheese(){
+  	$learning = new Learning;
+  	$this->assertEquals($learning->getCheese(), "camenbert");
+  	"camenbert"
+  }
  
 }
