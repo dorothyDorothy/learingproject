@@ -1,8 +1,8 @@
 <?php 
- 
+use PHPUnit\Framework\TestCase;
 use DorothyMolloy\LearningProject\Learning;
  
-class LearningTest extends PHPUnit_Framework_TestCase {
+class LearningTest extends TestCase {
  
   public function testHasCheese()
   {

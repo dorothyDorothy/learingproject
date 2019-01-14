@@ -1,56 +1,49 @@
-var gulp = require('gulp');
-
-var plugins = require("gulp-load-plugins")({
-    pattern: ['gulp-*', 'gulp.*'],
-    replaceString: /\bgulp[\-.]/
-});
-
+const { src, dest, watch, series, parallel } = require('gulp');
+const compsr = require('gulp-composer');
+const exec = require('child_process').exec;
 
 /* --- File paths --- */
 var basePaths = {
-	root: '_src/',
+  root: '_src/',
   sass_source: '_src/scss/',
   js_source: '_src/js/',
   css_dest: 'deploy/html/css/',
   js_dest: 'deploy/html/js/'
 };
-
 var appFiles = {
-	php: basePaths.root + '*.php'
+  php: basePaths.root + '*.php'
 };
 
-/* --- gutils --- */
 
-var gutil = require('gulp-util');
-var changeEvent = function(evt) {
-    gutil.log('File', gutil.colors.cyan(evt.path.replace(new RegExp('/.*(?=/' + basePaths.src + ')/'), '')), 'was', gutil.colors.magenta(evt.type));
-};
 
-/* --- Composer --- */
-gulp.task('composer', function(){
-	plugins.composer('install');
-});
+function composerInstall() {
+  return compsr.composer('install');
+}
+
 
 /* --- Php Unit --- */
-var exec = require('child_process').exec;
-gulp.task('phpunit', function(cb){
-	exec('./vendor/bin/phpunit', function(err, stdout, stderr){
+function unitTests(cb) {
+  exec('./vendor/bin/phpunit', function(err, stdout, stderr){
     console.log(stdout);
     console.log(stderr);
-    cb(err);		
-	});
-});
+    cb(err);    
+  });
+  
+}
 
 
-gulp.task('watch', function(){
-	gulp.watch(['./composer.json'], [ 'composer'])
-		.on('change', function(evt){
-			changeEvent(evt);
-		});
-	gulp.watch([appFiles.php], [ 'phpunit'])
-		.on('change', function(evt){
-			changeEvent(evt);
-		});		
-});
+function watcher () {
+  // simpleBs();
 
-gulp.task('default', ['composer', 'watch']);
+
+  watch(['./composer.json'], 
+    series(composerInstall)
+    );
+
+  watch([appFiles.php],
+    series(unitTests)
+    );  
+}
+
+
+exports.default = watcher;
