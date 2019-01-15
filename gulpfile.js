@@ -11,7 +11,8 @@ var basePaths = {
   js_dest: 'deploy/html/js/'
 };
 var appFiles = {
-  php: basePaths.root + '*.php'
+  php: basePaths.root + '*.php',
+  phpunit: 'tests/*.php'
 };
 
 
@@ -40,7 +41,7 @@ function watcher () {
     series(composerInstall)
     );
 
-  watch([appFiles.php],
+  watch([appFiles.php, appFiles.phpunit],
     series(unitTests)
     );  
 }
